@@ -12,7 +12,7 @@ Updated: 2026-10-24. Local verification and public-chain evidence are tracked se
 | M5 | Reward vault and tests | Verified locally | Official Foundry 1.8.6 with Monad execution: 34 tests, two 256-case fuzz properties, compiler ABI export and format check. |
 | M6 | Integration and automated QA | Partially verified | All workspace typechecks, nine unit-test files, web build and lint pass. Live HTTP/browser and PostgreSQL checks remain. |
 | M7 | Portable hosting | Implemented—unverified | Docker/Compose configuration exists; Docker socket access is denied in this environment. |
-| M8 | Testnet deployment and both claims | Pending funding | Separate encrypted deployer/verifier prepared. Deployer balance was 0 MON at last check; deployment and payout receipts do not yet exist. |
+| M8 | Testnet contract deployment and settlement | Verified on-chain | Vault deployed/source-verified; isolated test actors received 4/14 test USDC, treasury received 2 atomically, a second campaign refunded 20, and a repeated claim reverted. See the release report. |
 | M9 | Public hosting and actual demo recording | Pending | No verified public application deployment or live demo recording. |
 
 See [TESTNET.md](TESTNET.md) for addresses and executable setup commands, and [WORK_LOG.md](WORK_LOG.md) for evidence and environment limits.

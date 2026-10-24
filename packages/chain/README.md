@@ -25,7 +25,7 @@ pnpm --filter @fyx/chain test:baseline
 
 This runs offline using `SOLC_PATH`, a cached native compiler in the standard SVM data directory, or an already installed Solidity 0.8.33. It does not install tooling, connect to RPC, broadcast transactions, or establish Monad gas/execution compatibility. Foundry 1.5.1 warns that it ignores `network = "monad"`; that warning is expected for this fallback.
 
-Verified on 2026-10-24 with checksum-verified official Foundry 1.8.6 and `network = "monad"`: **34 contract tests passed**, including two fuzz properties with 256 generated cases each. Coverage includes the 4/14/2 split, token decimals, either claim order, refunds, global nonce replay, modified claim fields, wrong chain/domain, platform transfer rollback, reentrancy, underfunding, and accounting conservation. Build, compiler ABI export and formatting also passed. Deployment, explorer verification and live claims remain pending.
+Verified on 2026-10-24 with checksum-verified official Foundry 1.8.6 and `network = "monad"`: **34 contract tests passed**, including two fuzz properties with 256 generated cases each. Coverage includes the 4/14/2 split, token decimals, either claim order, refunds, global nonce replay, modified claim fields, wrong chain/domain, platform transfer rollback, reentrancy, underfunding, and accounting conservation. Build, compiler ABI export and formatting also passed. The vault is now deployed at `0xF15Dbc53de06Aaec3de35E4991F67343c7a87F13`, with an exact source match and successful 4/14/2 settlement, refund and replay checks on Monad Testnet. See the [receipt-backed release report](../../docs/releases/2026-10-24-monad-testnet.md).
 
 The current workspace keeps the toolchain in ignored `.tools/foundry-v1.8.6`; prepend that directory to `PATH` when running package-level commands. Root `pnpm monad:*` deployment commands select it automatically. See the [testnet guide](../../docs/TESTNET.md).
 
@@ -63,4 +63,4 @@ curl -sS -X POST https://agents.devnads.com/v1/verify \
 
 Poll `https://agents.devnads.com/v1/verify/status/10143/<actual vault address>`. API acceptance alone is not successful source verification. The [official verification guide](https://docs.monad.xyz/guides/verify-smart-contract/foundry) provides a Foundry alternative. Verification is not an audit.
 
-Remaining release prerequisites: fund the prepared deployer with test MON; provide 20 configured test USDC for a campaign; provision PostgreSQL for the API; confirm deployment, source verification and both live claims. No deployment artifacts are fabricated.
+Live contract deployment, source verification, controlled payouts and refund are verified. Remaining application prerequisites are a PostgreSQL connection, API runtime and browser/HTTP rehearsal. Test tokens for the contract rehearsal were minted through the configured token’s verified public faucet function.

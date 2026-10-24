@@ -11,6 +11,7 @@ const keystores=resolve(directory,'keystores');
 const passwordFile=resolve(directory,'keystore-password');
 const manifestFile=resolve(directory,'addresses.json');
 const existing=existsSync(manifestFile)?JSON.parse(readFileSync(manifestFile,'utf8')):undefined;
+if(existing&&existing.chainId!==10143)throw new Error('Existing wallet manifest is not for Monad Testnet.');
 mkdirSync(keystores,{recursive:true,mode:0o700});
 chmodSync(directory,0o700);chmodSync(keystores,0o700);
 if(!existsSync(passwordFile)){
@@ -29,7 +30,8 @@ function cast(args,env={}){
   });
 }
 const accounts={};
-for(const role of ['deployer','verifier']){
+const roles=process.argv.includes('--rehearsal')?['deployer','verifier','finder','developer']:['deployer','verifier'];
+for(const role of roles){
   const name=`pach-${role}`;
   const path=resolve(keystores,name);
   if(existing?.[role]&&!existsSync(path))throw new Error(`The ${role} keystore is missing. Restore it; a funded address will never be silently replaced.`);
@@ -40,6 +42,6 @@ for(const role of ['deployer','verifier']){
   if(existing?.[role]&&existing[role].address.toLowerCase()!==address.toLowerCase())throw new Error(`The ${role} address no longer matches the existing wallet manifest.`);
   accounts[role]={address,keystore:resolve(dirname(manifestFile),'keystores',name)};
 }
-const manifest={chainId:10143,...accounts,treasury:accounts.deployer.address,passwordFile};
+const manifest={...existing,chainId:10143,...accounts,treasury:existing?.treasury||accounts.deployer.address,passwordFile};
 writeFileSync(manifestFile,JSON.stringify(manifest,null,2)+'\n',{mode:0o600});
-console.log(JSON.stringify({chainId:10143,deployer:accounts.deployer.address,verifier:accounts.verifier.address,treasury:manifest.treasury,manifest:manifestFile},null,2));
+console.log(JSON.stringify({chainId:10143,...Object.fromEntries(Object.entries(accounts).map(([role,account])=>[role,account.address])),treasury:manifest.treasury,manifest:manifestFile},null,2));

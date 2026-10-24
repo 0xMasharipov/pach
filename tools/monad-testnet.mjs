@@ -34,7 +34,7 @@ if(mode==='dev'){
   env.VERIFIER_ADDRESSES||=manifest.deployer.address;
 }
 const script=mode==='dev'?resolve(root,'tools/dev.mjs'):resolve(root,'packages/chain/scripts',mode==='check'?'preflight.mjs':mode==='verify'?'verify-deployment.mjs':'deploy.mjs');
-const child=spawn(process.execPath,[script,...(mode==='deploy'?['--broadcast']:[])],{cwd:root,env,stdio:'inherit'});
+const child=spawn(process.execPath,[script,...(mode==='deploy'?['--broadcast',...(process.argv.includes('--redeploy')?['--redeploy']:[])]:[])],{cwd:root,env,stdio:'inherit'});
 for(const signal of ['SIGINT','SIGTERM'])process.once(signal,()=>child.kill(signal));
 child.on('error',()=>{console.error('Could not start testnet command.');process.exitCode=1;});
 child.on('close',code=>{process.exitCode=code??1;});

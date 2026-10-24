@@ -1,0 +1,30 @@
+{
+  "chainId": 10143,
+  "rpc": "https://testnet-rpc.monad.xyz",
+  "vaultAddress": "0xF15Dbc53de06Aaec3de35E4991F67343c7a87F13",
+  "testUsdcAddress": "0x56bf9CDc3C1876F3F22655a0016C2743E9e39a73",
+  "decimals": 6,
+  "verifier": "0x578bd633179Df9be8818E506ceFa2F6Fc3613087",
+  "treasury": "0xD820E76F15dfA5620D2fD152657b7eF4d94273C1",
+  "deployTxHash": "0x808169930d3128dbeb11dbbf5756a567667ec838f169ce2dda5d35bc73c4496a",
+  "blockNumber": "73820461",
+  "explorerUrl": "https://testnet.monadscan.com/address/0xF15Dbc53de06Aaec3de35E4991F67343c7a87F13",
+  "abiPath": "packages/chain/abi/FYXRewardVault.json",
+  "compilerVersion": "0.8.33+commit.64118f21",
+  "optimizer": {
+    "enabled": true,
+    "runs": 200
+  },
+  "evmVersion": "cancun",
+  "sourceVerified": true,
+  "submissionMethod": "offline-signed-json-rpc",
+  "confirmations": 2,
+  "gasUsed": "1858373",
+  "gasCostMon": "0.189554046",
+  "sourceVerification": {
+    "provider": "sourcify",
+    "status": "perfect",
+    "verificationId": "076191a2-8ab4-4c1f-ae6e-45dc6a828a00",
+    "verifiedAt": "2026-10-24T13:04:55.345Z"
+  }
+}

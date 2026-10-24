@@ -1,6 +1,6 @@
 # Portable deployment
 
-Status: packaging prepared; Docker execution, PostgreSQL runtime, public hosting and Testnet settlement remain unverified in this sandbox. No live URL or contract address exists in this handoff.
+Status: the reward vault is deployed and source-verified on Monad Testnet, with receipt-backed payout/refund tests in the [release report](releases/2026-10-24-monad-testnet.md). Docker execution, PostgreSQL runtime and public application hosting remain unverified.
 
 ## Dependency and runtime preparation
 

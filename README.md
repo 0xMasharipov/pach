@@ -26,6 +26,6 @@ See the [development guide](docs/DEVELOPMENT.md) for checks, or the [Monad Testn
 
 Next.js · React · TypeScript · Node.js API · PostgreSQL · Solidity
 
-**Prototype, not a live rewards service.** Test USDC has no monetary value. Practice earns no claimable rewards; funded campaigns require validation and authorized review. Public hosting and testnet settlement are not yet verified.
+**Prototype, not a live rewards service.** Test USDC has no monetary value. Practice earns no claimable rewards; funded campaigns require validation and authorized review. Controlled [testnet settlement is verified](docs/releases/2026-10-24-monad-testnet.md); public app hosting remains pending.
 
 [Development](docs/DEVELOPMENT.md) · [Deployment](docs/DEPLOYMENT.md) · [Contracts](packages/chain/README.md) · [Release checklist](docs/RELEASE_CHECKLIST.md)

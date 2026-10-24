@@ -18,6 +18,8 @@
     "deploy:simulate": "node scripts/deploy.mjs",
     "deploy:testnet": "node scripts/deploy.mjs --broadcast",
     "deployment:record": "node scripts/record-deployment.mjs",
+    "deployment:record-rpc": "node scripts/record-rpc-deployment.mjs",
+    "rehearsal:record": "node scripts/record-rehearsal.mjs",
     "deployment:verify": "node scripts/verify-deployment.mjs",
     "test:scripts": "node --test test/*.test.mjs"
   }
