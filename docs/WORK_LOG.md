@@ -21,3 +21,9 @@
 - Regenerated the complete dependency lockfile and installed Fastify and other declared dependencies. Frozen installation, all workspace typechecks, nine unit-test files, web build and lint pass. Sharp's optional source-build attempt reports a missing node-addon-api; the web build succeeds.
 - Network access inside Node/Foundry orchestration remains restricted in this execution sandbox; direct approved curl RPC reads work. Anvil cannot bind a local socket, and Docker access is denied. Consequently no running-chain/API integration or PostgreSQL rehearsal is claimed.
 - Requested 1 test MON for deployment/rehearsal and 20 configured test USDC for a funded campaign. Actual deployment, source verification and live claims remain pending.
+
+## 2026-10-24 — Deployment funding follow-up
+- User reported sending 3 test MON. The prepared deployer still returned 0 MON from the testnet RPC; requested the funding transaction hash for confirmation. No deployment was broadcast.
+- RPC gas estimation using the exact compiled creation bytecode and intended constructor addresses succeeded at 1,486,698 gas. This is an unsigned estimate, not a deployment receipt.
+- Added `pnpm monad:verify` using the official Sourcify route. It checks the successful creation receipt, exact bytecode/constructor input, local source hashes, and a full verification match for the exact address on chain 10143 before recording sourceVerified=true.
+- The source verification status regression test and JavaScript syntax checks pass. A false/partial match, wrong chain or different address cannot mark a deployment fully verified.

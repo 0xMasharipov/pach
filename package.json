@@ -19,7 +19,8 @@
     "monad:check": "node tools/monad-testnet.mjs check",
     "monad:simulate": "node tools/monad-testnet.mjs simulate",
     "monad:deploy": "node tools/monad-testnet.mjs deploy",
-    "monad:dev": "node tools/monad-testnet.mjs dev"
+    "monad:dev": "node tools/monad-testnet.mjs dev",
+    "monad:verify": "node tools/monad-testnet.mjs verify"
   },
   "devDependencies": {
     "typescript": "5.9.3",

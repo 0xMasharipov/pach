@@ -17,6 +17,8 @@
     "build:baseline": "node scripts/baseline.mjs build",
     "deploy:simulate": "node scripts/deploy.mjs",
     "deploy:testnet": "node scripts/deploy.mjs --broadcast",
-    "deployment:record": "node scripts/record-deployment.mjs"
+    "deployment:record": "node scripts/record-deployment.mjs",
+    "deployment:verify": "node scripts/verify-deployment.mjs",
+    "test:scripts": "node --test test/*.test.mjs"
   }
 }

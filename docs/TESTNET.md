@@ -20,13 +20,14 @@ pnpm monad:wallets
 pnpm monad:check
 pnpm monad:simulate
 pnpm monad:deploy
+pnpm monad:verify
 ```
 
 `monad:wallets` creates or reuses two encrypted Foundry keystores. Addresses in a fresh clone will differ from this workspace. Back up `.data/monad` privately: it contains the encrypted accounts and their local password file. The directory is excluded from Git. Existing addresses are never silently replaced when wallet files are missing.
 
 Send test MON to the displayed deployer before broadcasting. The initial funding request is 1 test MON for deployment and rehearsal transactions; actual gas usage is recorded in receipts. Creating a funded campaign separately requires 20 configured test USDC. Run `monad:check` again to inspect balances and token compatibility. The verifier signs approvals off-chain and does not need gas.
 
-`monad:simulate` makes no broadcast. `monad:deploy` verifies the network, token, encrypted sender and public immutable addresses, broadcasts through Foundry, and records only a confirmed matching receipt under `packages/chain/deployments/10143.json`. Use the generated verification payload as described in the [contract guide](../packages/chain/README.md).
+`monad:simulate` makes no broadcast. `monad:deploy` verifies the network, token, encrypted sender and public immutable addresses, broadcasts through Foundry, and records only a confirmed matching receipt under `packages/chain/deployments/10143.json`. `monad:verify` submits the exact deployed source to the Sourcify service used by MonadVision, then checks for a full source match on chain 10143 before marking the deployment verified. No explorer API key is needed for this route. See the [official verification guide](https://docs.monad.xyz/guides/verify-smart-contract/foundry) and [contract guide](../packages/chain/README.md).
 
 ## Connect the application
 

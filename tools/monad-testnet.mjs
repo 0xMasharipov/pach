@@ -7,7 +7,7 @@ import {run} from '../packages/chain/scripts/process.mjs';
 
 const root=fileURLToPath(new URL('../',import.meta.url));
 const mode=process.argv[2]||'check';
-if(!['check','simulate','deploy','dev'].includes(mode))throw new Error('Use check, simulate, deploy or dev.');
+if(!['check','simulate','deploy','dev','verify'].includes(mode))throw new Error('Use check, simulate, deploy, verify or dev.');
 const manifestFile=resolve(root,'.data/monad/addresses.json');
 if(!existsSync(manifestFile))throw new Error('Run pnpm monad:wallets first.');
 const manifest=JSON.parse(readFileSync(manifestFile,'utf8'));
@@ -33,7 +33,7 @@ if(mode==='dev'){
   env.SPONSOR_ADDRESSES||=manifest.deployer.address;
   env.VERIFIER_ADDRESSES||=manifest.deployer.address;
 }
-const script=mode==='dev'?resolve(root,'tools/dev.mjs'):resolve(root,'packages/chain/scripts',mode==='check'?'preflight.mjs':'deploy.mjs');
+const script=mode==='dev'?resolve(root,'tools/dev.mjs'):resolve(root,'packages/chain/scripts',mode==='check'?'preflight.mjs':mode==='verify'?'verify-deployment.mjs':'deploy.mjs');
 const child=spawn(process.execPath,[script,...(mode==='deploy'?['--broadcast']:[])],{cwd:root,env,stdio:'inherit'});
 for(const signal of ['SIGINT','SIGTERM'])process.once(signal,()=>child.kill(signal));
 child.on('error',()=>{console.error('Could not start testnet command.');process.exitCode=1;});
