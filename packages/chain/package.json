@@ -1,0 +1,19 @@
+{
+  "name": "@fyx/chain",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "exports": "./abi/index.ts",
+  "scripts": {
+    "build": "node scripts/check-toolchain.mjs && forge build && node scripts/export-abi.mjs",
+    "test": "node scripts/check-toolchain.mjs && forge test -vv",
+    "lint": "forge fmt --check",
+    "abi": "node scripts/export-abi.mjs",
+    "typecheck": "tsc --noEmit",
+    "test:baseline": "node scripts/baseline.mjs test",
+    "build:baseline": "node scripts/baseline.mjs build",
+    "deploy:simulate": "node scripts/deploy.mjs",
+    "deploy:testnet": "node scripts/deploy.mjs --broadcast",
+    "deployment:record": "node scripts/record-deployment.mjs"
+  }
+}

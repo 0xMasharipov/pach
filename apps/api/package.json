@@ -1,0 +1,26 @@
+{
+  "name": "@fyx/api",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "tsx watch src/server.ts",
+    "start": "tsx src/server.ts",
+    "build": "tsc --noEmit",
+    "typecheck": "tsc --noEmit",
+    "test": "tsx --test test/*.test.ts",
+    "db:migrate": "tsx src/migrate.ts",
+    "dev:offline": "node --env-file-if-exists=.env --watch --import tsx src/offline-server.ts",
+    "start:offline": "node --env-file-if-exists=.env --import tsx src/offline-server.ts",
+    "typecheck:offline": "tsc --noEmit -p tsconfig.offline.json"
+  },
+  "dependencies": {
+    "@fyx/shared": "workspace:*",
+    "fastify": "5.12.7",
+    "drizzle-orm": "0.45.2",
+    "postgres": "3.4.9",
+    "viem": "2.48.4",
+    "zod": "4.3.6",
+    "@fyx/chain": "workspace:*"
+  }
+}

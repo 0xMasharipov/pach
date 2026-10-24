@@ -1,0 +1,28 @@
+{
+  "name": "fyx-workspace",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "packageManager": "pnpm@12.15.0",
+  "scripts": {
+    "dev": "pnpm --parallel --filter @fyx/web --filter @fyx/api dev",
+    "build": "pnpm -r --if-present build",
+    "typecheck": "pnpm -r --if-present typecheck",
+    "test": "pnpm -r --if-present test",
+    "lint": "pnpm -r --if-present lint",
+    "dev:offline": "node tools/dev.mjs --offline",
+    "test:e2e": "node tests/e2e/browser.mjs",
+    "build:web": "pnpm --filter @fyx/web build",
+    "test:unit": "node --import tsx --test packages/shared/src/*.test.ts apps/api/test/*.test.ts apps/web/src/lib/*.test.ts",
+    "test:e2e:artifact": "node --import tsx tests/e2e/browser.mjs --artifact"
+  },
+  "devDependencies": {
+    "typescript": "5.9.3",
+    "tsx": "4.23.13",
+    "@types/node": "20.19.39",
+    "playwright": "1.63.0"
+  },
+  "engines": {
+    "node": ">=22.12.0"
+  }
+}

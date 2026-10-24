@@ -1,0 +1,31 @@
+![PACH — Found something? Make it count.](docs/assets/pach-banner.png)
+
+# Small discoveries. Better products.
+
+PACH makes product testing playable. Try a broken checkout, spot the glitch, and help a fix move forward.
+
+- **Play immediately.** Explore the demo and report a defect. No wallet needed.
+- **Make it reproducible.** Game events and evidence give reviewers something concrete to check.
+- **Follow the fix.** Controlled patches, human review, and funded testnet campaigns connect findings to resolution.
+
+## Try it locally
+
+Requires Node.js **22.12+** and the pnpm version pinned in `package.json`.
+
+```sh
+cp .env.example .env
+pnpm install --no-frozen-lockfile
+pnpm dev:offline
+```
+
+Open [the practice challenge](http://localhost:3000/play/checkout). This starts the web app and a demo API with in-memory storage.
+
+The inherited lockfile needs regeneration on the first fresh install; review it before using frozen installs in CI. See the [development guide](docs/DEVELOPMENT.md) for checks and runtime details.
+
+## Under the hood
+
+Next.js · React · TypeScript · Node.js API · PostgreSQL · Solidity
+
+**Prototype, not a live rewards service.** Test USDC has no monetary value. Practice earns no claimable rewards; funded campaigns require validation and authorized review. Public hosting and testnet settlement are not yet verified.
+
+[Development](docs/DEVELOPMENT.md) · [Deployment](docs/DEPLOYMENT.md) · [Contracts](packages/chain/README.md) · [Release checklist](docs/RELEASE_CHECKLIST.md)

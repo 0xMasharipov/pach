@@ -1,0 +1,51 @@
+services:
+  db:
+    image: postgres:17-alpine
+    environment:
+      POSTGRES_USER: fyx
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?Set POSTGRES_PASSWORD in .env}
+      POSTGRES_DB: fyx
+    volumes:
+      - database:/var/lib/postgresql/data
+    healthcheck:
+      test: [CMD-SHELL, "pg_isready -U fyx -d fyx"]
+      interval: 5s
+      timeout: 5s
+      retries: 12
+  migrate:
+    build:
+      context: .
+      target: api
+    env_file: .env
+    command: [node, --import, tsx, apps/api/src/migrate.ts]
+    depends_on:
+      db:
+        condition: service_healthy
+  api:
+    build:
+      context: .
+      target: api
+    env_file: .env
+    environment:
+      PORT: 3001
+    depends_on:
+      migrate:
+        condition: service_completed_successfully
+    healthcheck:
+      test: [CMD, node, -e, "fetch('http://127.0.0.1:3001/api/health').then(r=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))"]
+      interval: 15s
+      timeout: 5s
+      retries: 5
+  web:
+    build:
+      context: .
+      target: web
+      args:
+        API_URL: http://api:3001
+    ports:
+      - '127.0.0.1:3000:3000'
+    depends_on:
+      api:
+        condition: service_healthy
+volumes:
+  database:

@@ -1,0 +1,127 @@
+{
+  "repository": "OpenZeppelin/openzeppelin-contracts",
+  "ref": "v5.4.0",
+  "retrieved": "2026-10-24",
+  "files": [
+    {
+      "path": "contracts/utils/cryptography/EIP712.sol",
+      "gitBlobSha": "6400cbca9d01092454e81cf958cfca1afdae8575",
+      "url": "https://github.com/OpenZeppelin/openzeppelin-contracts/blob/v5.4.0/contracts/utils/cryptography/EIP712.sol"
+    },
+    {
+      "path": "contracts/utils/cryptography/ECDSA.sol",
+      "gitBlobSha": "6493f56338ac22d133456cc439fc651b9459e54c",
+      "url": "https://github.com/OpenZeppelin/openzeppelin-contracts/blob/v5.4.0/contracts/utils/cryptography/ECDSA.sol"
+    },
+    {
+      "path": "contracts/token/ERC20/utils/SafeERC20.sol",
+      "gitBlobSha": "883e8d30c97e027a6d1ed38568c1c7fa22324164",
+      "url": "https://github.com/OpenZeppelin/openzeppelin-contracts/blob/v5.4.0/contracts/token/ERC20/utils/SafeERC20.sol"
+    },
+    {
+      "path": "contracts/utils/ReentrancyGuard.sol",
+      "gitBlobSha": "a95fb512f31d44755a811ad66f8e2de4b602266e",
+      "url": "https://github.com/OpenZeppelin/openzeppelin-contracts/blob/v5.4.0/contracts/utils/ReentrancyGuard.sol"
+    },
+    {
+      "path": "contracts/token/ERC20/ERC20.sol",
+      "gitBlobSha": "886febc552f78b1f1fbec494d96a54dff3620120",
+      "url": "https://github.com/OpenZeppelin/openzeppelin-contracts/blob/v5.4.0/contracts/token/ERC20/ERC20.sol"
+    },
+    {
+      "path": "LICENSE",
+      "gitBlobSha": "367f411ba024255417ea85307a142e809ee20c82",
+      "url": "https://github.com/OpenZeppelin/openzeppelin-contracts/blob/v5.4.0/LICENSE"
+    },
+    {
+      "path": "package.json",
+      "gitBlobSha": "6cd1daaad3d366f4e6c5868b4cbe4f2ea45c395b",
+      "url": "https://github.com/OpenZeppelin/openzeppelin-contracts/blob/v5.4.0/package.json"
+    },
+    {
+      "path": "contracts/utils/cryptography/MessageHashUtils.sol",
+      "gitBlobSha": "37e92395f8994719e544c3489dcc475841a69d23",
+      "url": "https://github.com/OpenZeppelin/openzeppelin-contracts/blob/v5.4.0/contracts/utils/cryptography/MessageHashUtils.sol"
+    },
+    {
+      "path": "contracts/utils/ShortStrings.sol",
+      "gitBlobSha": "81d713d4bed045f5f83f431ef60dfb1c51012f40",
+      "url": "https://github.com/OpenZeppelin/openzeppelin-contracts/blob/v5.4.0/contracts/utils/ShortStrings.sol"
+    },
+    {
+      "path": "contracts/interfaces/IERC5267.sol",
+      "gitBlobSha": "96cd325bc05ac0bfd2459d59c77e2a68962df9fc",
+      "url": "https://github.com/OpenZeppelin/openzeppelin-contracts/blob/v5.4.0/contracts/interfaces/IERC5267.sol"
+    },
+    {
+      "path": "contracts/token/ERC20/IERC20.sol",
+      "gitBlobSha": "b493743a10c4fba04d91014cbdb7f69b639480c1",
+      "url": "https://github.com/OpenZeppelin/openzeppelin-contracts/blob/v5.4.0/contracts/token/ERC20/IERC20.sol"
+    },
+    {
+      "path": "contracts/interfaces/IERC1363.sol",
+      "gitBlobSha": "7bf3e1f7bbe9a20d1bef5468a55786556c6525aa",
+      "url": "https://github.com/OpenZeppelin/openzeppelin-contracts/blob/v5.4.0/contracts/interfaces/IERC1363.sol"
+    },
+    {
+      "path": "contracts/token/ERC20/extensions/IERC20Metadata.sol",
+      "gitBlobSha": "87bbafa84b834af1da027455bdc2e8a87beeb438",
+      "url": "https://github.com/OpenZeppelin/openzeppelin-contracts/blob/v5.4.0/contracts/token/ERC20/extensions/IERC20Metadata.sol"
+    },
+    {
+      "path": "contracts/utils/Context.sol",
+      "gitBlobSha": "4e535fe03c243f864568b8f4430c17c25dbadb47",
+      "url": "https://github.com/OpenZeppelin/openzeppelin-contracts/blob/v5.4.0/contracts/utils/Context.sol"
+    },
+    {
+      "path": "contracts/interfaces/draft-IERC6093.sol",
+      "gitBlobSha": "aef2b0a0eb956a02ef20a7840e826d36fdd25589",
+      "url": "https://github.com/OpenZeppelin/openzeppelin-contracts/blob/v5.4.0/contracts/interfaces/draft-IERC6093.sol"
+    },
+    {
+      "path": "contracts/utils/Strings.sol",
+      "gitBlobSha": "a2d934dd42b94807f5b8a2ce3026f102f8a230dc",
+      "url": "https://github.com/OpenZeppelin/openzeppelin-contracts/blob/v5.4.0/contracts/utils/Strings.sol"
+    },
+    {
+      "path": "contracts/utils/StorageSlot.sol",
+      "gitBlobSha": "aebb10524a2c82aa78ceb8394e5f3c1b0e5abeea",
+      "url": "https://github.com/OpenZeppelin/openzeppelin-contracts/blob/v5.4.0/contracts/utils/StorageSlot.sol"
+    },
+    {
+      "path": "contracts/interfaces/IERC20.sol",
+      "gitBlobSha": "078e9ec9b403252bd480873adf10add00076eb0b",
+      "url": "https://github.com/OpenZeppelin/openzeppelin-contracts/blob/v5.4.0/contracts/interfaces/IERC20.sol"
+    },
+    {
+      "path": "contracts/interfaces/IERC165.sol",
+      "gitBlobSha": "d2c99a5bdfe9611dcfc67e8f0c40164d64ab5dd3",
+      "url": "https://github.com/OpenZeppelin/openzeppelin-contracts/blob/v5.4.0/contracts/interfaces/IERC165.sol"
+    },
+    {
+      "path": "contracts/utils/math/Math.sol",
+      "gitBlobSha": "f0d608a2dea029035ee3551e111c11b530665959",
+      "url": "https://github.com/OpenZeppelin/openzeppelin-contracts/blob/v5.4.0/contracts/utils/math/Math.sol"
+    },
+    {
+      "path": "contracts/utils/math/SafeCast.sol",
+      "gitBlobSha": "b345ede1e6994a12d8ca5ba4b6e87401952cb116",
+      "url": "https://github.com/OpenZeppelin/openzeppelin-contracts/blob/v5.4.0/contracts/utils/math/SafeCast.sol"
+    },
+    {
+      "path": "contracts/utils/math/SignedMath.sol",
+      "gitBlobSha": "7c97aa4c22da6567126a82c6949ec39e363ea891",
+      "url": "https://github.com/OpenZeppelin/openzeppelin-contracts/blob/v5.4.0/contracts/utils/math/SignedMath.sol"
+    },
+    {
+      "path": "contracts/utils/introspection/IERC165.sol",
+      "gitBlobSha": "be1932f267f9c794f21d934a6bc21a322c6d2709",
+      "url": "https://github.com/OpenZeppelin/openzeppelin-contracts/blob/v5.4.0/contracts/utils/introspection/IERC165.sol"
+    },
+    {
+      "path": "contracts/utils/Panic.sol",
+      "gitBlobSha": "e168824d34b3f0ba0be33317fb34b9e74fc148b6",
+      "url": "https://github.com/OpenZeppelin/openzeppelin-contracts/blob/v5.4.0/contracts/utils/Panic.sol"
+    }
+  ]
+}

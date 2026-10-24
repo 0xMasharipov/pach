@@ -1,0 +1,21 @@
+node_modules/
+.next/
+dist/
+.env
+.env.*
+!.env.example
+*.tsbuildinfo
+coverage/
+test-results/
+playwright-report/
+.tools/
+.data/
+packages/chain/out/
+packages/chain/cache/
+packages/chain/broadcast/
+
+# Local agent state and compiler cache
+/.agents/
+/.codex/
+/.aws/
+/cache/
