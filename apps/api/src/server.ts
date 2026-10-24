@@ -29,8 +29,10 @@ export function createServer(config:Config,store:Store,chain:ChainGateway){
 }
 if(process.argv[1]&&import.meta.url===pathToFileURL(process.argv[1]).href){
  try{
-  const config=readConfig();const store=config.databaseUrl?await postgresStore(config.databaseUrl):new MemoryStore();
-  const app=createServer(config,store,chainGateway(config));
+  const config=readConfig();const chain=chainGateway(config);
+  if(config.mode==='testnet')await chain.ready();
+  const store=config.databaseUrl?await postgresStore(config.databaseUrl):new MemoryStore();
+  const app=createServer(config,store,chain);
   await app.listen({port:config.port,host:'0.0.0.0'});
   for(const signal of ['SIGINT','SIGTERM'] as const)process.once(signal,()=>{void app.close();});
  }catch{console.error('Could not start API; check configuration, port and database migration.');process.exitCode=1;}

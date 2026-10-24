@@ -14,7 +14,7 @@ export function harness(){
  let time=Date.now();const sponsor=account(),player=account(),other=account(),reviewer=account();
  const config:Config={mode:'testnet',port:3001,origin:'http://localhost:3000',secure:false,databaseUrl:'postgres://fixture-only',rpcUrl:'http://localhost:8545',vaultAddress:TEST_VAULT,verifierKey:undefined,sponsors:[sponsor.address.toLowerCase()],verifiers:[reviewer.address.toLowerCase()],admins:[]};
  const store=new MemoryStore();const signed:Approval[]=[];
- const chain:ChainGateway={vaultAddress:TEST_VAULT,funding:async()=>({contractChallengeId:'1'}),refund:async()=>({amount:'20000000'}),claimReceipt:async()=> 'pending',sign:async approval=>{signed.push(structuredClone(approval));return `0x${'ab'.repeat(65)}`;}};
+ const chain:ChainGateway={vaultAddress:TEST_VAULT,ready:async()=>{},funding:async()=>({contractChallengeId:'1'}),refund:async()=>({amount:'20000000'}),claimReceipt:async()=> 'pending',sign:async approval=>{signed.push(structuredClone(approval));return `0x${'ab'.repeat(65)}`;}};
  const service=new Service({config,store,chain,now:()=>time});
  const call=async(method:string,path:string,body?:unknown,token?:string):Promise<any>=>(await service.execute(method,path,body,token)).body;
  async function login(who:PrivateKeyAccount){const {message}=await call('POST','/api/auth/nonce',{address:who.address,chainId:CHAIN_ID});return (await service.execute('POST','/api/auth/verify',{message,signature:await who.signMessage({message})})).cookie!;}

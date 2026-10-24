@@ -14,7 +14,12 @@
     "test:e2e": "node tests/e2e/browser.mjs",
     "build:web": "pnpm --filter @fyx/web build",
     "test:unit": "node --import tsx --test packages/shared/src/*.test.ts apps/api/test/*.test.ts apps/web/src/lib/*.test.ts",
-    "test:e2e:artifact": "node --import tsx tests/e2e/browser.mjs --artifact"
+    "test:e2e:artifact": "node --import tsx tests/e2e/browser.mjs --artifact",
+    "monad:wallets": "node tools/monad-wallets.mjs",
+    "monad:check": "node tools/monad-testnet.mjs check",
+    "monad:simulate": "node tools/monad-testnet.mjs simulate",
+    "monad:deploy": "node tools/monad-testnet.mjs deploy",
+    "monad:dev": "node tools/monad-testnet.mjs dev"
   },
   "devDependencies": {
     "typescript": "5.9.3",

@@ -8,13 +8,13 @@ Use Node >=22.12 and the pinned pnpm version in `package.json`.
 
 ```sh
 cp .env.example .env
-pnpm install --no-frozen-lockfile
+pnpm install --frozen-lockfile
 pnpm dev:offline
 ```
 
 Open `http://localhost:3000/play/checkout`. The offline command uses the real API service through a small Node HTTP transport, with demo-only memory storage. It does not simulate funded campaigns or payments. With Fastify installed, `pnpm dev` starts the standard transport. Both require permission to bind localhost ports. The `.env` loader is in `tools/dev.mjs`; package-level scripts require exported environment variables.
 
-This workspace currently uses cached dependency links because registry access is blocked. The inherited lockfile is incomplete; a fresh install must resolve dependencies and regenerate it. Review and commit the resulting lockfile, then use `pnpm install --frozen-lockfile` in CI. Do not copy the existing `node_modules` to another machine.
+Dependencies and the full application lockfile were regenerated on 2026-10-24. Use `pnpm install --frozen-lockfile` for repeatable installs. Only esbuild and Sharp dependency build scripts are approved in `pnpm-workspace.yaml`. See [Monad Testnet setup](TESTNET.md) for encrypted project accounts and deployment commands.
 
 ## Structure
 
@@ -39,7 +39,7 @@ pnpm --filter @fyx/chain test
 pnpm test:e2e
 ```
 
-The standard contract test command deliberately requires the Monad-capable Foundry version specified in the playbook. `test:baseline` is a separate local EVM check and does not prove Monad compatibility. Full API typechecking requires Fastify. For the cached dependency environment, use `pnpm --filter @fyx/api typecheck:offline`.
+The standard contract test command deliberately requires the Monad-capable Foundry version specified in the playbook. `test:baseline` is a separate local EVM check and does not prove Monad compatibility. Full API typechecking requires the installed Fastify dependency. `pnpm --filter @fyx/api typecheck:offline` remains available for the separate Node HTTP transport.
 
 For restricted environments that cannot bind ports, `pnpm test:e2e:artifact` tests the compiled `.next` pages and real API service through Playwright request interception. Build the web app first. Set `PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH` only if using an existing compatible browser. Artifact checks do not verify a running HTTP stack, deployment or chain RPC. Screenshots go to ignored `test-results/`.
 

@@ -5,6 +5,7 @@ const addresses=(value:string)=>value.split(',').map(v=>v.trim().toLowerCase()).
 export function readConfig(source:NodeJS.ProcessEnv=process.env){
  const raw=Object.fromEntries(Object.entries(source).filter(([,v])=>v!==''));const e=env.parse(raw);
  if(e.FYX_MODE==='testnet'&&!e.DATABASE_URL)throw new Error('Testnet mode requires PostgreSQL DATABASE_URL; memory storage is demo only.');
+ if(e.FYX_MODE==='testnet'&&(!e.FYX_VAULT_ADDRESS||!e.VERIFIER_PRIVATE_KEY))throw new Error('Testnet mode requires FYX_VAULT_ADDRESS and a server-only VERIFIER_PRIVATE_KEY.');
  if(e.NODE_ENV==='production'&&!e.PUBLIC_ORIGIN.startsWith('https://'))throw new Error('Production requires HTTPS PUBLIC_ORIGIN.');
  return {mode:e.FYX_MODE,port:e.PORT,origin:new URL(e.PUBLIC_ORIGIN).origin,secure:e.NODE_ENV==='production',databaseUrl:e.DATABASE_URL,rpcUrl:e.MONAD_RPC_URL,vaultAddress:e.FYX_VAULT_ADDRESS as Address|undefined,verifierKey:e.VERIFIER_PRIVATE_KEY as Hex|undefined,sponsors:addresses(e.SPONSOR_ADDRESSES),verifiers:addresses(e.VERIFIER_ADDRESSES),admins:addresses(e.ADMIN_ADDRESSES)};
 }

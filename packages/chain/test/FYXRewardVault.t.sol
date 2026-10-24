@@ -71,6 +71,12 @@ contract MockUSDC is ERC20 {
     }
 }
 
+contract WrongDecimalsToken {
+    function decimals() external pure returns (uint8) {
+        return 18;
+    }
+}
+
 contract FYXRewardVaultTest {
     Vm internal constant vm = Vm(address(uint160(uint256(keccak256("hevm cheat code")))));
     // Deliberately public test-vector scalar; never used by deployment scripts or runtime.
@@ -141,6 +147,13 @@ contract FYXRewardVaultTest {
         require(token.balanceOf(DEVELOPER) == 14_000_000, "developer amount");
         require(token.balanceOf(TREASURY) == 2_000_000, "fee amount");
         conservation();
+    }
+
+    function testConstructorRejectsWrongDecimals() public {
+        WrongDecimalsToken wrong = new WrongDecimalsToken();
+        vm.etch(TOKEN, address(wrong).code);
+        vm.expectRevert(FYXRewardVault.WrongToken.selector);
+        new FYXRewardVault(TOKEN, vm.addr(TEST_SIGNER_KEY), TREASURY);
     }
 
     function testReverseClaimOrder() public {

@@ -2,6 +2,7 @@
 pragma solidity 0.8.33;
 
 import {IERC20} from "@openzeppelin/contracts/token/ERC20/IERC20.sol";
+import {IERC20Metadata} from "@openzeppelin/contracts/token/ERC20/extensions/IERC20Metadata.sol";
 import {SafeERC20} from "@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol";
 import {EIP712} from "@openzeppelin/contracts/utils/cryptography/EIP712.sol";
 import {ECDSA} from "@openzeppelin/contracts/utils/cryptography/ECDSA.sol";
@@ -82,6 +83,7 @@ contract FYXRewardVault is EIP712, ReentrancyGuard {
     constructor(address token_, address verifier_, address treasury_) EIP712("FYXRewardVault", "1") {
         if (block.chainid != CHAIN_ID) revert WrongChain();
         if (token_ != TEST_USDC || token_.code.length == 0) revert WrongToken();
+        if (IERC20Metadata(token_).decimals() != 6) revert WrongToken();
         if (verifier_ == address(0) || treasury_ == address(0)) revert ZeroAddress();
         token = IERC20(token_);
         verifier = verifier_;
@@ -116,7 +118,7 @@ contract FYXRewardVault is EIP712, ReentrancyGuard {
         if (ECDSA.recover(hashClaim(approval), signature) != verifier) revert UnauthorizedVerifier();
 
         usedNonces[approval.nonce] = true;
-        uint256 fee;
+        uint256 fee = 0;
         if (approval.role == 0) {
             campaign.finderClaimed = true;
         } else {

@@ -1,5 +1,6 @@
 import { z } from 'zod';
 export const CHAIN_ID = 10143 as const;
+export const TRANSACTION_CONFIRMATIONS = 2 as const;
 export const TEST_USDC_ADDRESS = '0x56bf9CDc3C1876F3F22655a0016C2743E9e39a73' as const;
 export const PRIZES = { finder: '4000000', developer: '14000000', platform: '2000000', total: '20000000' } as const;
 export const TOKEN_DECIMALS = 6;

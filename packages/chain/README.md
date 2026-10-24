@@ -25,7 +25,9 @@ pnpm --filter @fyx/chain test:baseline
 
 This runs offline using `SOLC_PATH`, a cached native compiler in the standard SVM data directory, or an already installed Solidity 0.8.33. It does not install tooling, connect to RPC, broadcast transactions, or establish Monad gas/execution compatibility. Foundry 1.5.1 warns that it ignores `network = "monad"`; that warning is expected for this fallback.
 
-Verified on 2026-10-24: 33 baseline tests passed, including two fuzz properties with 256 generated cases each (one also replayed a saved counterexample). Tests cover the 4/14/2 split, either claim order, refunds, global nonce reuse across campaigns, altered recipient/amount/proof/deadline, wrong chain and domain, failed platform transfer rollback, reentrancy, underfunding, and per-campaign/global conservation. Monad-specific build/test, deployment, source verification and live claims remain unverified.
+Verified on 2026-10-24 with checksum-verified official Foundry 1.8.6 and `network = "monad"`: **34 contract tests passed**, including two fuzz properties with 256 generated cases each. Coverage includes the 4/14/2 split, token decimals, either claim order, refunds, global nonce replay, modified claim fields, wrong chain/domain, platform transfer rollback, reentrancy, underfunding, and accounting conservation. Build, compiler ABI export and formatting also passed. Deployment, explorer verification and live claims remain pending.
+
+The current workspace keeps the toolchain in ignored `.tools/foundry-v1.8.6`; prepend that directory to `PATH` when running package-level commands. Root `pnpm monad:*` deployment commands select it automatically. See the [testnet guide](../../docs/TESTNET.md).
 
 ## ABI and signing
 
@@ -45,9 +47,9 @@ No deployment address or transaction is supplied until a real receipt is confirm
 
 1. Install official Foundry >=1.8 and run the release build/tests above.
 2. Confirm the latest [Monad network facts](https://docs.monad.xyz/ai/current-facts) and [Devnads token information](https://devnads.com/tokens). Obtain test MON for deployment and a separate supply of test USDC for the sponsor. The [Devnads MON faucet](https://devnads.com/agents) does not mint USDC.
-3. Export `MONAD_RPC_URL`, `FYX_DEPLOYER_ACCOUNT`, `FYX_VERIFIER_ADDRESS` and `FYX_TREASURY_ADDRESS`. Recheck the immutable addresses carefully.
+3. Export `MONAD_RPC_URL`, `FYX_DEPLOYER_ACCOUNT` (or `FYX_DEPLOYER_KEYSTORE`), `FYX_KEYSTORE_PASSWORD_FILE`, `FYX_VERIFIER_ADDRESS` and `FYX_TREASURY_ADDRESS`. The root `pnpm monad:wallets` and `pnpm monad:deploy` commands prepare and use project-local encrypted accounts automatically. Recheck the immutable addresses carefully.
 4. Run `pnpm --filter @fyx/chain deploy:simulate`. It checks toolchain and RPC chain ID; the Solidity script also checks chain, token code and token decimals. This command does not broadcast.
-5. Run `pnpm --filter @fyx/chain deploy:testnet` to broadcast the reviewed deployment. It reads the real broadcast transaction, queries its successful receipt and deployed getters, and writes `deployments/10143.json`, a hash-named history record, and `deployments/verification-payload.json`. These commands have not been exercised against a live wallet in this workspace.
+5. Run `pnpm --filter @fyx/chain deploy:testnet` to broadcast the reviewed deployment. It reads the real broadcast transaction, queries its successful receipt and deployed getters, and writes `deployments/10143.json`, a hash-named history record, and `deployments/verification-payload.json`. A live broadcast still requires a funded deployment account.
 6. Submit the generated verification payload as described below and poll until the explorer confirms the source. `sourceVerified` remains false in the artifact until the actual result is recorded. The payload is rejected locally if compiler source or creation bytecode no longer matches the deployment.
 7. Configure the API vault address and verifier secret; have sponsor and claimants sign their own funding/claim transactions through the application. Capture the actual funding, finder, developer and fee receipts for release acceptance.
 
@@ -61,4 +63,4 @@ curl -sS -X POST https://agents.devnads.com/v1/verify \
 
 Poll `https://agents.devnads.com/v1/verify/status/10143/<actual vault address>`. API acceptance alone is not successful source verification. The [official verification guide](https://docs.monad.xyz/guides/verify-smart-contract/foundry) provides a Foundry alternative. Verification is not an audit.
 
-Remaining environment blockers: installed Foundry is 1.5.1, shell DNS cannot resolve registry/network hosts, and no deployment account, authorized verifier/treasury or live sponsor wallet has been configured. Never replace missing deployment fields with plausible addresses or generated transaction hashes.
+Remaining release prerequisites: fund the prepared deployer with test MON; provide 20 configured test USDC for a campaign; provision PostgreSQL for the API; confirm deployment, source verification and both live claims. No deployment artifacts are fabricated.

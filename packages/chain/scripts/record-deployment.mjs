@@ -27,6 +27,11 @@ const token = await readAddress('token');
 const verifier = await readAddress('verifier');
 const treasury = await readAddress('treasury');
 if (token.toLowerCase() !== '0x56bf9cdc3c1876f3f22655a0016c2743e9e39a73') throw new Error('Unexpected deployed token.');
+for(const [actual,name] of [[verifier,'FYX_VERIFIER_ADDRESS'],[treasury,'FYX_TREASURY_ADDRESS']]){
+  if(!process.env[name]||actual.toLowerCase()!==process.env[name].toLowerCase())throw new Error(`Deployed immutable does not match ${name}.`);
+}
+if(BigInt((await cast(['call',vaultAddress,'CHAIN_ID()(uint256)'])).split(/\s/)[0])!==10143n)throw new Error('Unexpected vault chain ID.');
+if(BigInt(await cast(['call',token,'decimals()(uint8)']))!==6n)throw new Error('Unexpected token decimals.');
 const artifact = read('out/FYXRewardVault.sol/FYXRewardVault.json');
 const creationData = tx.transaction?.input || tx.transaction?.data;
 const liveTransaction = JSON.parse(await cast(['tx', tx.hash, '--json']));

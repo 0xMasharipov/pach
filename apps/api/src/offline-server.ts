@@ -37,8 +37,10 @@ export function createOfflineServer(config:Config,store:Store,chain:ChainGateway
 }
 if(process.argv[1]&&import.meta.url===pathToFileURL(process.argv[1]).href){
  try{
-  const config=readConfig();const store=config.databaseUrl?await postgresStore(config.databaseUrl):new MemoryStore();
-  const server=createOfflineServer(config,store,chainGateway(config));
+  const config=readConfig();const chain=chainGateway(config);
+  if(config.mode==='testnet')await chain.ready();
+  const store=config.databaseUrl?await postgresStore(config.databaseUrl):new MemoryStore();
+  const server=createOfflineServer(config,store,chain);
   server.on('error',()=>{console.error('Could not start Node API listener; check host and port.');process.exitCode=1;void store.close();});
   server.listen(config.port,'0.0.0.0',()=>console.log(`Node API transport listening on ${config.port}; mode=${config.mode}`));
   for(const signal of ['SIGINT','SIGTERM'] as const)process.once(signal,()=>server.close());

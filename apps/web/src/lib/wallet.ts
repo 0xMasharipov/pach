@@ -1,5 +1,6 @@
 import {createPublicClient, createWalletClient, custom, defineChain, erc20Abi, http, isAddress, type EIP1193Provider, type Hash} from 'viem';
 import {vaultAbi} from '@fyx/chain';
+import {TRANSACTION_CONFIRMATIONS} from '@fyx/shared';
 import type {Config, PreparedClaim} from './api';
 export const chain = defineChain({id:10143,name:'Monad Testnet',nativeCurrency:{name:'Test MON',symbol:'MON',decimals:18},rpcUrls:{default:{http:['https://testnet-rpc.monad.xyz']}},blockExplorers:{default:{name:'Monadscan',url:'https://testnet.monadscan.com'}},testnet:true});
 export type BrowserProvider = EIP1193Provider & {on?:(event:string,listener:(...args:unknown[])=>void)=>void;removeListener?:(event:string,listener:(...args:unknown[])=>void)=>void};
@@ -34,7 +35,7 @@ export async function fundChallenge(config:Config,address:`0x${string}`,expiry:n
   const approvalSimulation=await publicClient.simulateContract({address:config.tokenAddress,abi:erc20Abi,functionName:'approve',args:[vault,20000000n],account:address});
   const approvalHash=await wallet.writeContract(approvalSimulation.request);
   onProgress('Token approval submitted. Waiting for confirmation.',approvalHash);
-  const approvalReceipt=await publicClient.waitForTransactionReceipt({hash:approvalHash});
+  const approvalReceipt=await publicClient.waitForTransactionReceipt({hash:approvalHash,confirmations:TRANSACTION_CONFIRMATIONS});
   if (approvalReceipt.status!=='success') throw new Error('Token approval reverted. The campaign has not been funded.');
   // Recheck the wallet immediately before the second signature.
   await clients(config,address);
@@ -43,7 +44,7 @@ export async function fundChallenge(config:Config,address:`0x${string}`,expiry:n
   const hash=await wallet.writeContract(simulation.request);
   onProgress('Deposit submitted. Waiting for network confirmation.',hash);
   onSubmitted?.(hash);
-  const receipt=await publicClient.waitForTransactionReceipt({hash});
+  const receipt=await publicClient.waitForTransactionReceipt({hash,confirmations:TRANSACTION_CONFIRMATIONS});
   if (receipt.status!=='success') throw new Error('The campaign deposit reverted. See the transaction for details.');
   return hash;
 }
@@ -57,7 +58,7 @@ export async function sendClaim(config:Config,address:`0x${string}`,prepared:Pre
   const hash=await wallet.writeContract(simulation.request);
   onProgress('Claim submitted. Waiting for network confirmation.',hash);
   await onSubmitted?.(hash);
-  const receipt=await publicClient.waitForTransactionReceipt({hash});
+  const receipt=await publicClient.waitForTransactionReceipt({hash,confirmations:TRANSACTION_CONFIRMATIONS});
   if (receipt.status!=='success') throw new Error('The claim transaction reverted. See the transaction for details.');
   return hash;
 }
@@ -66,7 +67,7 @@ export async function refundChallenge(config:Config,address:`0x${string}`,id:str
   onProgress('Confirm the unspent-funds refund in your wallet.');
   const simulation=await publicClient.simulateContract({address:vault,abi:vaultAbi,functionName:'refundUnspent',args:[BigInt(id)],account:address});
   const hash=await wallet.writeContract(simulation.request); onProgress('Refund submitted. Waiting for confirmation.',hash);
-  const receipt=await publicClient.waitForTransactionReceipt({hash});
+  const receipt=await publicClient.waitForTransactionReceipt({hash,confirmations:TRANSACTION_CONFIRMATIONS});
   if(receipt.status!=='success') throw new Error('The refund transaction reverted.');
   return hash;
 }

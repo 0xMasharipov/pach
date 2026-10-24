@@ -4,9 +4,11 @@ Status: packaging prepared; Docker execution, PostgreSQL runtime, public hosting
 
 ## Dependency and runtime preparation
 
-1. On a network-enabled host, run `pnpm install --no-frozen-lockfile` with the pinned package manager. The existing lockfile contains only package-manager metadata, not the application dependency graph. Review the complete new lockfile and switch builds to `--frozen-lockfile`.
+1. Run `pnpm install --frozen-lockfile` with the pinned package manager. The full dependency lockfile was regenerated on 2026-10-24.
 2. Run unit tests, full typechecks, lint and web build. Install a Playwright browser and run the HTTP browser checks with the application started.
 3. Pin tested container image digests. The supplied `node:24-bookworm-slim` and `postgres:17-alpine` tags are packaging choices, not verified image availability or reproducibility evidence.
+
+For project-local encrypted Monad wallets, preflight, deployment and application startup, see [TESTNET.md](TESTNET.md).
 
 ## Local Compose rehearsal
 

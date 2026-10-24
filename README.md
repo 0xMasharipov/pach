@@ -14,13 +14,13 @@ Requires Node.js **22.12+** and the pnpm version pinned in `package.json`.
 
 ```sh
 cp .env.example .env
-pnpm install --no-frozen-lockfile
+pnpm install --frozen-lockfile
 pnpm dev:offline
 ```
 
 Open [the practice challenge](http://localhost:3000/play/checkout). This starts the web app and a demo API with in-memory storage.
 
-The inherited lockfile needs regeneration on the first fresh install; review it before using frozen installs in CI. See the [development guide](docs/DEVELOPMENT.md) for checks and runtime details.
+See the [development guide](docs/DEVELOPMENT.md) for checks, or the [Monad Testnet guide](docs/TESTNET.md) for encrypted wallets, contract deployment, and rewards.
 
 ## Under the hood
 

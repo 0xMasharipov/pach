@@ -4,6 +4,9 @@
   "private": true,
   "type": "module",
   "exports": "./abi/index.ts",
+  "dependencies": {
+    "viem": "2.48.4"
+  },
   "scripts": {
     "build": "node scripts/check-toolchain.mjs && forge build && node scripts/export-abi.mjs",
     "test": "node scripts/check-toolchain.mjs && forge test -vv",
