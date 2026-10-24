@@ -12,7 +12,7 @@ pnpm install --frozen-lockfile
 pnpm dev:offline
 ```
 
-Open `http://localhost:3000/play/checkout`. The offline command uses the real API service through a small Node HTTP transport, with demo-only memory storage. It does not simulate funded campaigns or payments. With Fastify installed, `pnpm dev` starts the standard transport. Both require permission to bind localhost ports. The `.env` loader is in `tools/dev.mjs`; package-level scripts require exported environment variables.
+Open `http://localhost:3000/play/checkout`. The offline command uses the real API service through a small Node HTTP transport, with demo-only memory storage. It does not simulate funded campaigns or payments. With Fastify installed, `pnpm dev` starts the standard transport. Both require permission to bind localhost ports. The development/testnet launchers and API package commands load root `.env` and `.env.local`, with explicit process environment values taking precedence.
 
 Dependencies and the full application lockfile were regenerated on 2026-10-24. Use `pnpm install --frozen-lockfile` for repeatable installs. Only esbuild and Sharp dependency build scripts are approved in `pnpm-workspace.yaml`. See [Monad Testnet setup](TESTNET.md) for encrypted project accounts and deployment commands.
 

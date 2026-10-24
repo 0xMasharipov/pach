@@ -4,14 +4,14 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "tsx watch src/server.ts",
-    "start": "tsx src/server.ts",
+    "dev": "node --watch --env-file-if-exists=../../.env --env-file-if-exists=../../.env.local --import tsx src/server.ts",
+    "start": "node --env-file-if-exists=../../.env --env-file-if-exists=../../.env.local --import tsx src/server.ts",
     "build": "tsc --noEmit",
     "typecheck": "tsc --noEmit",
     "test": "tsx --test test/*.test.ts",
-    "db:migrate": "tsx src/migrate.ts",
-    "dev:offline": "node --env-file-if-exists=.env --watch --import tsx src/offline-server.ts",
-    "start:offline": "node --env-file-if-exists=.env --import tsx src/offline-server.ts",
+    "db:migrate": "node --env-file-if-exists=../../.env --env-file-if-exists=../../.env.local --import tsx src/migrate.ts",
+    "dev:offline": "node --env-file-if-exists=../../.env --env-file-if-exists=../../.env.local --watch --import tsx src/offline-server.ts",
+    "start:offline": "node --env-file-if-exists=../../.env --env-file-if-exists=../../.env.local --import tsx src/offline-server.ts",
     "typecheck:offline": "tsc --noEmit -p tsconfig.offline.json"
   },
   "dependencies": {

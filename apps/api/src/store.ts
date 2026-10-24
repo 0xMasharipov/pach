@@ -15,7 +15,7 @@ export class MemoryStore implements Store {
 /** Small hackathon deployment: one locked JSONB aggregate, not a scalable indexer. */
 export async function postgresStore(url:string):Promise<Store>{
   const [{default:postgres},{drizzle},{pgTable,integer,jsonb},{eq}]=await Promise.all([import('postgres'),import('drizzle-orm/postgres-js'),import('drizzle-orm/pg-core'),import('drizzle-orm')]);
-  const client=postgres(url,{max:5,connect_timeout:10});
+  const client=postgres(url,{max:5,connect_timeout:10,prepare:false});
   const db=drizzle(client);
   const table=pgTable('fyx_state',{id:integer('id').primaryKey(),value:jsonb('value').$type<State>().notNull()});
   // Migration must have run. Startup intentionally fails if durable storage is absent.

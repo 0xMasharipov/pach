@@ -39,10 +39,10 @@ pnpm monad:verify
 
 ## Connect the application
 
-Provision PostgreSQL, set `DATABASE_URL` and `PUBLIC_ORIGIN` in the root `.env`, then apply the migration with the same environment:
+Provision PostgreSQL, set `DATABASE_URL` and `PUBLIC_ORIGIN` in the root `.env.local` (or `.env`), then apply the migration. See [Supabase setup](SUPABASE.md) for the Session pooler connection and server-only credentials.
 
 ```sh
-node --env-file=.env --import tsx apps/api/src/migrate.ts
+pnpm db:migrate
 pnpm monad:dev
 ```
 

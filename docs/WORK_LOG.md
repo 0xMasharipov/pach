@@ -38,3 +38,11 @@
 - Verified final totals: deposited 40, claimed 18, fees 2, refunded 20, escrow 0. Token balances and claimed/refunded flags match. Deployment plus all rehearsal gas cost 0.308907 MON.
 - Added duplicate-deployment refusal and receipt-backed RPC/rehearsal recorders. Syntax/status tests and the duplicate-deployment guard pass. Existing 34 Monad contract tests remain valid for the exact source-verified deployed bytecode.
 - Requested PostgreSQL DATABASE_URL configuration for the application runtime. HTTP/PostgreSQL/browser hosting remains pending; the on-chain rehearsal is explicitly labeled as controlled contract testing.
+
+## 2026-10-24 — Supabase environment integration
+- User added Supabase database password and API keys to root `.env.local`. Inspected names/formats only; no credential values were printed. Restricted the local file to mode 0600.
+- Identified the project from the existing legacy anon JWT metadata. A credential-private, read-only request for the PACH state table reached PostgREST and returned PGRST205. The direct Postgres hostname could not be resolved from this execution environment. DATABASE_URL is not present, so no remote migration or database write is claimed.
+- Requested the Supabase Session pooler connection URI on port 5432 in `.env.local`. API keys and a password alone do not identify the project’s pooler host.
+- Added shared `.env` / `.env.local` loading for root launchers, matching package-level Node environment-file loading. Explicit process values take precedence. Supabase, database, signing and unrelated API credentials are removed from the web child environment.
+- Added transactional ordered migration execution with an advisory lock, backend-only RLS/grant migration for the aggregate, and prepared-statement disabling for pooler compatibility. Migrations are ready but remain unapplied remotely.
+- All ten unit-test files and all workspace typechecks pass, including new environment precedence and credential-isolation tests. Removed temporary credential-bearing probe files; only the original ignored local environment file remains as the Supabase credential source.

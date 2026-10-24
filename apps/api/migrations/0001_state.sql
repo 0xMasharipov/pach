@@ -2,7 +2,7 @@
 -- JSONB maps contain users, nonces, sessions, challenges, games/events, reports,
 -- submissions/evidence, reviews/claims/receipts and audit events. This serializes
 -- award reservation across API processes; no in-memory fallback in testnet mode.
-CREATE TABLE IF NOT EXISTS fyx_state (
+CREATE TABLE IF NOT EXISTS public.fyx_state (
   id INTEGER PRIMARY KEY CHECK (id = 1),
   value JSONB NOT NULL
 );

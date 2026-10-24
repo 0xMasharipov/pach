@@ -1,7 +1,7 @@
 import {readFileSync,existsSync} from 'node:fs';
 import {resolve,join} from 'node:path';
 import {fileURLToPath} from 'node:url';
-import {parseEnv} from 'node:util';
+import {loadProjectEnv} from './project-env.mjs';
 import {spawn} from 'node:child_process';
 import {run} from '../packages/chain/scripts/process.mjs';
 
@@ -11,8 +11,7 @@ if(!['check','simulate','deploy','dev','verify'].includes(mode))throw new Error(
 const manifestFile=resolve(root,'.data/monad/addresses.json');
 if(!existsSync(manifestFile))throw new Error('Run pnpm monad:wallets first.');
 const manifest=JSON.parse(readFileSync(manifestFile,'utf8'));
-const localEnv=resolve(root,'.env');
-const env={...(existsSync(localEnv)?parseEnv(readFileSync(localEnv,'utf8')):{}),...process.env};
+const env=loadProjectEnv(root);
 env.MONAD_RPC_URL||='https://testnet-rpc.monad.xyz';
 env.FYX_DEPLOYER_KEYSTORE||=manifest.deployer.keystore;
 env.FYX_KEYSTORE_PASSWORD_FILE||=manifest.passwordFile;
@@ -25,7 +24,7 @@ if(mode==='dev'){
   if(!existsSync(deploymentFile))throw new Error('A confirmed deployment record is required before testnet mode.');
   const deployment=JSON.parse(readFileSync(deploymentFile,'utf8'));
   if(deployment.chainId!==10143||deployment.verifier.toLowerCase()!==manifest.verifier.address.toLowerCase())throw new Error('The deployment does not match the prepared testnet signer.');
-  if(!env.DATABASE_URL)throw new Error('Set DATABASE_URL in .env; testnet mode requires PostgreSQL and the database migration.');
+  if(!env.DATABASE_URL)throw new Error('Set DATABASE_URL in .env.local or .env; testnet mode requires PostgreSQL and the database migration.');
   // Decrypt only into the server process environment. Never write or print this value.
   env.VERIFIER_PRIVATE_KEY=await run('cast',['wallet','private-key','--keystore',manifest.verifier.keystore,'--password-file',manifest.passwordFile],{env});
   if(!/^0x[0-9a-fA-F]{64}$/.test(env.VERIFIER_PRIVATE_KEY))throw new Error('Could not unlock the project verifier.');
