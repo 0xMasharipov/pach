@@ -2,8 +2,10 @@
 
 The PACH reward vault is deployed on Monad Testnet (`10143`) and has an exact creation/runtime source match on Sourcify/MonadVision. Controlled on-chain settlement and refund tests passed.
 
-**Vault:** [`0xF15Dbc53de06Aaec3de35E4991F67343c7a87F13`](https://testnet.monadscan.com/address/0xF15Dbc53de06Aaec3de35E4991F67343c7a87F13)  
-**Compiler:** Solidity 0.8.33+commit.64118f21; optimizer 200 runs; Cancun target.  
+**Vault:** [`0xF15Dbc53de06Aaec3de35E4991F67343c7a87F13`](https://testnet.monadscan.com/address/0xF15Dbc53de06Aaec3de35E4991F67343c7a87F13)
+
+**Compiler:** Solidity 0.8.33+commit.64118f21; optimizer 200 runs; Cancun target.
+
 **Local execution tests:** official Foundry 1.8.6, Monad network, 34 passing tests including two 256-case fuzz properties.
 
 ## Actual transactions
